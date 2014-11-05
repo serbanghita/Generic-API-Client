@@ -1,0 +1,22 @@
+{
+    "name": "serbanghita/generic-api-client",
+    "type": "library",
+    "description": "A generic API client with basic HTTP support written in PHP.",
+    "keywords": ["api", "rest", "json rpc", "api client", "json"],
+    "homepage": "https://github.com/serbanghita/Generic-API-Client",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Serban Ghita",
+            "email": "serbanghita@gmail.com",
+            "homepage": "http://serban.ghita.org",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
