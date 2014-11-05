@@ -64,14 +64,16 @@ class Curl extends AbstractTransport
                 break;
         }
 
-        // Save the response.
-        $this->response = curl_exec($this->handler);
-
         // Save the request.
-        $this->request  = curl_getinfo($this->handler, CURLINFO_HEADER_OUT);
-        $this->request .= $body;
+        $request  = curl_getinfo($this->handler, CURLINFO_HEADER_OUT);
+        $request .= $body;
+        $this->setRequest($request);
 
-        if (empty($this->response)) {
+        // Save the response.
+        $response = curl_exec($this->handler);
+        $this->setResponse($response);
+
+        if (empty($response)) {
             throw new Exception(
                 'The request returned an empty response. ' .
                 ' Code: ' . curl_errno($this->handler) .
@@ -86,7 +88,7 @@ class Curl extends AbstractTransport
 
     public function read()
     {
-        return $this->response;
+        return $this->getResponse();
     }
 
     public function close()

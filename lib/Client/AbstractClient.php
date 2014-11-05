@@ -11,7 +11,6 @@ abstract class AbstractClient
     protected $port;
     protected $proxy;
 
-
     public function __construct($options, $transportType = 'Curl')
     {
         $this->setOptions($options);
@@ -29,7 +28,6 @@ abstract class AbstractClient
         if (isset($options['uri']) &&
             !empty($options['uri']) &&
             preg_match('/http[s]?\:\/\/[\w\.\-]+\//is', $options['uri'])) {
-
             $this->setHost(parse_url($options['uri'], PHP_URL_HOST));
             $this->setPort(parse_url($options['uri'], PHP_URL_PORT));
 
@@ -79,27 +77,12 @@ abstract class AbstractClient
         return $this->proxy;
     }
 
+    // @todo Move to AbstractTransport::factory?
     public function setTransport($type)
     {
-        $className = '\\Transport\\' . $type;
-        if (!class_exists($className)) {
-            throw new Exception('Transport type not supported: ' . $type, 'INVALID_TRANSPORT');
-        }
-
         $options = $this->getOptions();
-
-        switch ($type) {
-            case 'Curl':
-                // Translate the Client's options into valid cURL options.
-                // @todo: Expose more options.
-                $transportOptions = array();
-                $transportOptions[CURLOPT_URL] = $options['uri'];
-                $transportOptions[CURLOPT_PROXY] = $this->getProxy();
-                break;
-        }
-
-        $this->transport = new $className($transportOptions);
-
+        $transport = \Transport\AbstractTransport::factory($type, $options);
+        $this->transport = $transport;
     }
 
     public function getTransport()
@@ -108,6 +91,8 @@ abstract class AbstractClient
     }
 
     abstract public function send($method, $args);
+
+    abstract public function notify($method, $args);
 
     abstract public function login();
 
