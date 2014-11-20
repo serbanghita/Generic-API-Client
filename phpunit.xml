@@ -2,7 +2,13 @@
 <phpunit
     strict="true"
     colors="false"
+    verbose="false"
     bootstrap="tests/bootstrap.php">
+
+    <php>
+        <ini name="error_reporting" value="-1"/>
+    </php>
+
     <testsuites>
         <testsuite name="all">
             <directory suffix="Test.php">tests/</directory>

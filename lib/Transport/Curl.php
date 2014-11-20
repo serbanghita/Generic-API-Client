@@ -1,5 +1,5 @@
 <?php
-namespace Transport;
+namespace GenericApiClient\Transport;
 
 class Curl implements TransportInterface
 {

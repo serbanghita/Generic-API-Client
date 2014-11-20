@@ -1,7 +1,7 @@
 <?php
-namespace tests\Transport\Curl;
+namespace GenericApiClientTest\Transport\Curl;
 
-use Transport;
+use GenericApiClient\Transport;
 
 class CurlFirstTest extends \PHPUnit_Framework_TestCase
 {
